@@ -9,7 +9,9 @@ function  handleThePickup (theOrder){
 
 console.log('DRIVER', `picked up ${theOrder.orderId}`);
 
+setTimeout(() => {
 eventEmitter.emit("transmit the order", theOrder);
+}, 1000);
 
 }
 
@@ -27,7 +29,7 @@ function handleTheTransmit(theOrder){
     `) 
     setTimeout(() => {
     eventEmitter.emit("the order has been delivered", theOrder);
-     }, 2000);
+     }, 3000);
     }
 
 function handleThedelivery(theOrder){
