@@ -1,7 +1,31 @@
-const eventEmitter=require('../lib/events.pool');
-require("./vendor")
+'use strict';
 
-eventEmitter.on("handleThePickup", handleThePickup);
+const client=require('socket.io-client')
+const host='http://localhost:3000';
+
+const capsConnection =client.connect(host);
+//console.log('iiiii');
+capsConnection.on('transmit the order',theOrder=>{
+    console.log(`picked up ${theOrder.orderId}`);
+    setTimeout(() => {
+    capsConnection.emit("handleTheTransmit",theOrder)
+}, 1000);
+});
+
+capsConnection.on('order successfully deliverd',theOrder=>{
+    console.log(`delivered up ${theOrder.orderId}`);
+    setTimeout(() => {
+    capsConnection.emit("delivered",theOrder)
+}, 2000);
+});
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+//const eventEmitter=require('../lib/events.pool');
+//require("./vendor")
+
+
+/*eventEmitter.on("handleThePickup", handleThePickup);
 eventEmitter.on('transmit the order', handleTheTransmit);
 eventEmitter.on('the order has been delivered', handleThedelivery);
 
@@ -38,4 +62,4 @@ function handleThedelivery(theOrder){
     setTimeout(() => {
      eventEmitter.emit("order successfully deliverd", theOrder);
     }, 2000);
-}
+}*/
