@@ -1,10 +1,39 @@
 'use strict';
 
 const { faker } = require("@faker-js/faker");
-const eventEmitter=require('../lib/events.pool');
-require("./driver");
 
-eventEmitter.on("prepareTheOrder",handletheorder);
+const client=require('socket.io-client');
+const host='http://localhost:3000';
+
+
+const capsConnection =client.connect(host);  // create a connection between server and client 
+
+capsConnection.on('prepareTheOrder',() =>{
+//console.log('hhi')
+
+   let theOrder={
+    
+       store :"Neveen's store",
+       orderId: faker.datatype.uuid(),
+       customer:faker.name.firstName(),
+       address: faker.address.city()
+
+   }
+   capsConnection.emit('handletheorder',theOrder);
+
+})
+
+
+capsConnection.on("order successfully deliverd",theOrder=>{
+    console.log(`thank you for delivering ${theOrder.orderId}`);
+})
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+//const eventEmitter=require('../lib/events.pool');
+//require("./driver");
+
+/*eventEmitter.on("prepareTheOrder",handletheorder);
 eventEmitter.on("order successfully deliverd",handlethedelivery);
 
  function handletheorder(){
@@ -48,4 +77,4 @@ eventEmitter.on("order successfully deliverd",handlethedelivery);
      `)
 
      }
-    
+    */

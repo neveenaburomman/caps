@@ -5,6 +5,9 @@ in this lab we used the events in the node.js ,we setup a pool of event and hand
 in the vendor.js we  alert the system when we have a package to be picked up and we will be notfied when the package has been recevied 
 in driver, we will  be notified when there is a package to be delivered, and alert the system when I have picked up a package and it is in transit.
 
+the code has been refactored using socket io insted of using the events to get the same result we have last lab .
+
+
 # UML
 ![caps](https://user-images.githubusercontent.com/90922969/159136726-84a8019a-99f8-4101-88e0-23870cb22293.jpg)
 
